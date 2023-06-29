@@ -22,7 +22,6 @@ class PostFactory extends Factory
             'title' => fake()->title(),
             'content' => fake()->text(),
             'author_id' => User::factory(),
-            // 'photo' => '',
             'is_published' => fake()->boolean(80)
         ];
     }

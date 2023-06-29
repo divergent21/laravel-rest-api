@@ -14,13 +14,15 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'title',
         'content',
-        'photo'
+        'photo',
+        'is_published',
+        'author_id'
     ];
 
     public function user () {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id', 'author_id');
     }
 
     public function scopePublished (Builder $query) {

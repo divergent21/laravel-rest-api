@@ -6,6 +6,10 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Http\Resources\PostResource;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+
+use App\Jobs\SetPostPhoto;
 
 class PostController extends Controller
 {
@@ -19,7 +23,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::published()->paginate());
+        return Cache::tags('posts-lists')->rememberForever('posts-page-' . request('page', 1), function () {
+            return PostResource::collection(Post::published()->paginate());
+        });
     }
 
     /**
@@ -27,15 +33,17 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'content' => $request->content,
-            'author_id' => auth()->user()->id,
+            'author_id' => auth('sanctum')->user()->id,
             'photo' => '',
-            'is_published' => (bool) $request->is_published
+            'is_published' => $request->has('is_published') ? $request->is_published : true
         ]);
 
-        return response()->created();
+        SetPostPhoto::dispatch($post);
+
+        return response($post, 201);
     }
 
     /**
@@ -43,7 +51,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return PostResource::make($post);
+        return Cache::tags('post')->rememberForever('post-'. $post->id, function () use ($post) {
+            return PostResource::make($post);
+        });
     }
 
     /**
@@ -53,7 +63,7 @@ class PostController extends Controller
     {
         $post->update($request->all());
         
-        return response()->accepted();
+        return response()->noContent(202);
     }
 
     /**
@@ -63,6 +73,6 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return response()->deleted();
+        return response()->noContent(204);
     }
 }

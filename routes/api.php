@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,22 +18,19 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::post('/login', [AuthController::class, 'store'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
-    return \App\Models\User::all();
-});
+Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
+Route::get('/users/{user}/posts', [UserController::class, 'posts'])->middleware('auth:sanctum');
 
 Route::controller(PostController::class)->prefix('posts')->name('posts.')->group(function () {
     Route::get('/', 'index');
     Route::get('/{post}', 'show');
 
-    // Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/{post}', 'store');
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/', 'store');
         Route::put('/{post}', 'update');
+        Route::patch('/{post}', 'update');
         Route::delete('/{post}', 'destroy');
-    // });
+    });
 });
-
-// Route::resource('photos.comments', CommentController::class)->shallow();
-

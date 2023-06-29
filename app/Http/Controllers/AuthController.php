@@ -6,21 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+use App\Http\Requests\LoginRequest;
+
 class AuthController extends Controller
 {
-    public function store (Request $request) {
-        $request->validate([
-            'login' => ['required', 'min:8'],
-            'password' => 'required',
-            'device_name' => 'required'
-        ]);
-
-        $user = User::where('email', $request->email)->first();
+    public function login (LoginRequest $request) {
+        $user = User::where('login', $request->login)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response('Login invalid', 503);
         }
 
-        return $user->createToken($request->device_name)->plainTextToken;
+        return $user->createToken('app')->plainTextToken;
     }
 }

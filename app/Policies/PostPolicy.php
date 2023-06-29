@@ -11,7 +11,7 @@ class PostPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(?User $user): bool
+    public function viewAny(?User $user)
     {
         return true;
     }
@@ -21,15 +21,16 @@ class PostPolicy
      */
     public function view(?User $user, Post $post): Response
     {
-        if ($user && ($user->isAdmin || $post->author_id == $user->id)) {
-            return Response::allow();
+        if (! $user) $user = auth('sanctum')->user();;
+        
+        if ($user) {
+            if ($user->isAdmin) return Response::allow();
+            if ($post->author_id == $user->id) return Response::allow();
         }
 
-        if (! $post->is_published) {
-            return Response::denyAsNotFound();
-        }
+        if ($post->is_published) return Response::allow();
 
-        return Response::allow();
+        return Response::denyAsNotFound();
     }
 
     /**

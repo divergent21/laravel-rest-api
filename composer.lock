@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa322c53454393ed775cfe4807d54a50",
+    "content-hash": "8953d2fd4b674994661c8e1f4d001dc3",
     "packages": [
         {
             "name": "brick/math",
@@ -1761,6 +1761,68 @@
             "time": "2022-04-17T13:12:02+00:00"
         },
         {
+            "name": "marksitko/laravel-unsplash",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marksitko/laravel-unsplash.git",
+                "reference": "458313c81676ee606c9a72d34b6cb28aa386f886"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marksitko/laravel-unsplash/zipball/458313c81676ee606c9a72d34b6cb28aa386f886",
+                "reference": "458313c81676ee606c9a72d34b6cb28aa386f886",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "illuminate/support": "^8.0|^9.0|^10.0",
+                "php": "^8.0|^8.1|^8.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MarkSitko\\LaravelUnsplash\\UnsplashServiceProvider"
+                    ],
+                    "aliases": {
+                        "Unsplash": "MarkSitko\\LaravelUnsplash\\Facades\\Unsplash"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MarkSitko\\LaravelUnsplash\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Sitko",
+                    "email": "hey@marksitko.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides a fluent Unsplash API for Laravel",
+            "homepage": "https://github.com/marksitko/laravel-unsplash",
+            "keywords": [
+                "laravel-unsplash",
+                "marksitko"
+            ],
+            "support": {
+                "issues": "https://github.com/marksitko/laravel-unsplash/issues",
+                "source": "https://github.com/marksitko/laravel-unsplash/tree/2.2.0"
+            },
+            "time": "2023-03-01T06:56:12+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "3.4.0",
             "source": {
@@ -2328,6 +2390,67 @@
                 }
             ],
             "time": "2023-02-25T19:38:58+00:00"
+        },
+        {
+            "name": "predis/predis",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/predis/predis.git",
+                "reference": "33b70b971a32b0d28b4f748b0547593dce316e0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/predis/predis/zipball/33b70b971a32b0d28b4f748b0547593dce316e0d",
+                "reference": "33b70b971a32b0d28b4f748b0547593dce316e0d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.3",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^8.0 || ~9.4.4"
+            },
+            "suggest": {
+                "ext-relay": "Faster connection with in-memory caching (>=0.6.2)"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Till Krüss",
+                    "homepage": "https://till.im",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A flexible and feature-complete Redis client for PHP.",
+            "homepage": "http://github.com/predis/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "support": {
+                "issues": "https://github.com/predis/predis/issues",
+                "source": "https://github.com/predis/predis/tree/v2.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tillkruss",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-14T10:37:31+00:00"
         },
         {
             "name": "psr/container",

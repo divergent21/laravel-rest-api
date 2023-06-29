@@ -22,6 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'login',
+        'role',
         'password',
     ];
 
@@ -45,10 +46,10 @@ class User extends Authenticatable
     ];
 
     public function posts () {
-        return $this->hasMany(Post::class, 'id', 'author_id');
+        return $this->hasMany(Post::class, 'author_id', 'id');
     }
 
-    public function getAttributeIsAdmin () {
+    protected function getIsAdminAttribute () {
         return $this->role == 'admin';
     }
 }
